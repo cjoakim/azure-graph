@@ -1,0 +1,11 @@
+{
+  "search_users_by_name": {
+    "name": "Han Solo"
+  },
+  "search_users_by_dept": {
+    "name": "Laser Swords"
+  },
+  "search_users_by_email": {
+    "email": "hsolo@tatooine.com"
+  }
+}

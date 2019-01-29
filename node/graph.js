@@ -38,6 +38,7 @@ if (process.argv.length < 3) {
     console.log('node graph.js search_users_by_name Joakim');
     console.log('node graph.js search_users_by_name Chris~Joakim');
     console.log('node graph.js search_users_by_dept xxx');
+    console.log('node graph.js search_users_by_email chkoakim@microsoft.com');
     console.log('');
     process.exit();
 }
@@ -77,6 +78,12 @@ function writeFile(funct, content) {
     console.log('file written: ' + outfile);
 }
 
+function readConfig() {
+    var jstr = fs.readFileSync('config/config.json').toString();
+    return JSON.parse(jstr);
+}
+
+
 const funct = process.argv[2];
 
 if (funct === 'me') {
@@ -114,8 +121,12 @@ else if (funct === 'my_photo') {
 }
 
 else if (funct === 'users') {
+    var api_path = '/users';
+    if (process.argv.length > 3) {
+        api_path = '/users/' + process.argv[3];
+    }
     client
-        .api('/users')
+        .api(api_path)
         .get()
         .then((res) => {
             handleResponse(funct, res);
@@ -125,13 +136,18 @@ else if (funct === 'users') {
 }
 
 else if (funct === 'search_users_by_name') {
-    var name = process.argv[3].replace(/~/g, ' '); 
+    var name = process.argv[3].replace(/~/g, ' ');
+    if (name === '--use-config') {
+        name = readConfig()[funct]['name'];
+    }
     var api_path = 'me/people/?$search="' + name + '"';
+    var outfile = (funct + '_' + name).split(' ').join('_').toLowerCase();
+
     client
         .api(api_path)
         .get()
         .then((res) => {
-            handleResponse(funct, res);
+            handleResponse(outfile, res);
         }).catch((err) => {
             console.log(err);
         });
@@ -139,12 +155,35 @@ else if (funct === 'search_users_by_name') {
 
 else if (funct === 'search_users_by_dept') {
     var dept = process.argv[3].replace(/~/g, ' '); 
+    if (dept === '--use-config') {
+        dept = readConfig()[funct]['name'];
+    }
     var api_path = "users?$filter=startswith(department,'" + dept + "')";
+    var outfile  = (funct + '_' + dept).split(' ').join('_').toLowerCase();
+    console.log('api_path: ' + api_path + ' --> ' + outfile);
     client
         .api(api_path)
         .get()
         .then((res) => {
-            handleResponse(funct, res);
+            handleResponse(outfile, res);
+        }).catch((err) => {
+            console.log(err);
+        });
+}
+
+else if (funct === 'search_users_by_email') {
+    var dept = process.argv[3].replace(/~/g, ' '); 
+    if (dept === '--use-config') {
+        dept = readConfig()[funct]['email'];
+    }
+    var api_path = "users?$filter=startswith(mail,'" + dept + "')"; // userPrincipalName
+    var outfile  = (funct + '_' + dept).split(' ').join('_').toLowerCase();
+    console.log('api_path: ' + api_path + ' --> ' + outfile);
+    client
+        .api(api_path)
+        .get()
+        .then((res) => {
+            handleResponse(outfile, res);
         }).catch((err) => {
             console.log(err);
         });
