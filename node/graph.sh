@@ -10,5 +10,6 @@ node graph.js users
 node graph.js top_n_people 2000
 node graph.js job_titles 2000
 node graph.js search_users_by_name Joakim
+node graph.js search_users_by_name Chris~Joakim
 
 echo 'done'

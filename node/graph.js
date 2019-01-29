@@ -36,6 +36,8 @@ if (process.argv.length < 3) {
     console.log('node graph.js top_n_people 100');
     console.log('node graph.js job_titles 100');
     console.log('node graph.js search_users_by_name Joakim');
+    console.log('node graph.js search_users_by_name Chris~Joakim');
+    console.log('node graph.js search_users_by_dept xxx');
     console.log('');
     process.exit();
 }
@@ -123,8 +125,21 @@ else if (funct === 'users') {
 }
 
 else if (funct === 'search_users_by_name') {
-    var name = process.argv[3];
+    var name = process.argv[3].replace(/~/g, ' '); 
     var api_path = 'me/people/?$search="' + name + '"';
+    client
+        .api(api_path)
+        .get()
+        .then((res) => {
+            handleResponse(funct, res);
+        }).catch((err) => {
+            console.log(err);
+        });
+}
+
+else if (funct === 'search_users_by_dept') {
+    var dept = process.argv[3].replace(/~/g, ' '); 
+    var api_path = "users?$filter=startswith(department,'" + dept + "')";
     client
         .api(api_path)
         .get()

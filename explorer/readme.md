@@ -18,13 +18,17 @@ https://graph.microsoft.com/v1.0/me/manager
 https://graph.microsoft.com/v1.0/me/calendar/events
 https://graph.microsoft.com/v1.0/me/ownedDevices
 
-
 https://graph.microsoft.com/v1.0/users
 https://graph.microsoft.com/v1.0/users/{id}
 https://graph.microsoft.com/v1.0/users?$select=displayName,mail,jobTitle
 https://graph.microsoft.com/v1.0/users?$filter=givenName eq 'Adele'
 
+https://graph.microsoft.com/v1.0/users?$filter=startswith(displayName, 'Chris Joak')
+https://graph.microsoft.com/v1.0/users?$filter=startswith(department, 'US-CS Southeast COGS')
+
 https://graph.microsoft.com/v1.0/me/people/?$search="Joakim"
+https://graph.microsoft.com/v1.0/me/people/?$search="CHARLOTTE"
+
 https://graph.microsoft.com/v1.0/me/people?$top=2000
 
 https://graph.microsoft.com/v1.0/myorganization/domains 
