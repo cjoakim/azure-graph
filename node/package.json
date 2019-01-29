@@ -1,0 +1,20 @@
+{
+  "name": "cjoakim-azure-graph-node",
+  "version": "1.0.0",
+  "description": "Azure Graph REST API with Node.js",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Azure",
+    "REST",
+    "Graph API"
+  ],
+  "author": "Chris Joakim",
+  "license": "MIT",
+  "dependencies": {
+    "@microsoft/microsoft-graph-client": "^1.4.0",
+    "request": "^2.88.0"
+  }
+}

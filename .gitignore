@@ -1,3 +1,8 @@
+
+# cj
+node/tmp/
+node/tmp/access_token.txt
+
 # Logs
 logs
 *.log
