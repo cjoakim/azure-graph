@@ -40,6 +40,8 @@ if (process.argv.length < 3) {
     console.log('node graph.js search_users_by_dept xxx');
     console.log('node graph.js search_users_by_email chkoakim@microsoft.com');
     console.log('');
+    console.log('see https://developer.microsoft.com/en-us/graph/graph-explorer and tokenPlease()');
+    console.log('');
     process.exit();
 }
 
