@@ -26,11 +26,11 @@ $ npm install
 ## Execution
 
 ```
-node graph.js me
-node graph.js my_selected_attrs
-node graph.js my_photo
-node graph.js users
-node graph.js top_n_people 100
-node graph.js job_titles 100
-node graph.js search_users_by_name Joakim
+$ node graph.js me
+$ node graph.js my_selected_attrs
+$ node graph.js my_photo
+$ node graph.js users
+$ node graph.js top_n_people 100
+$ node graph.js job_titles 100
+$ node graph.js search_users_by_name Joakim
 ```

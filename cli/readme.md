@@ -10,8 +10,10 @@
 ## Examples
 
 ```
-az extension add --name resource-graph
-az graph query --help
-az graph query -q "project name, type, location | order by name asc"
-az graph query -q "project name, type, location | distinct location | order by location asc"
+$ az extension add --name resource-graph
+
+$ az graph query --help
+
+$ az graph query -q "project name, type, location | order by name asc"
+$ az graph query -q "project name, type, location | distinct location | order by location asc"
 ```
