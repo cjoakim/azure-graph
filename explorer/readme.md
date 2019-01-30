@@ -31,6 +31,7 @@ https://graph.microsoft.com/v1.0/users?$filter=startswith(department, 'US')
 
 https://graph.microsoft.com/v1.0/me/people/?$search="Joakim"
 https://graph.microsoft.com/v1.0/me/people/?$search="CHARLOTTE"
+https://graph.microsoft.com/v1.0/me/people/?$search="Satya Nadella"  (displayName)
 
 https://graph.microsoft.com/v1.0/me/people?$top=2000
 
