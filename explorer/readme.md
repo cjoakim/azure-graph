@@ -24,6 +24,7 @@ https://graph.microsoft.com/beta/me
 https://graph.microsoft.com/v1.0/users
 https://graph.microsoft.com/v1.0/users/{id}
 https://graph.microsoft.com/v1.0/users?$select=displayName,mail,jobTitle
+https://graph.microsoft.com/v1.0/users/123456x?$select=skills
 https://graph.microsoft.com/v1.0/users?$filter=givenName eq 'Charlotte'
 https://graph.microsoft.com/v1.0/users?$filter=city eq 'Charlotte'
 
