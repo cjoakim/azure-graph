@@ -17,6 +17,7 @@ https://graph.microsoft.com/v1.0/me/memberOf
 https://graph.microsoft.com/v1.0/me/manager
 https://graph.microsoft.com/v1.0/me/calendar/events
 https://graph.microsoft.com/v1.0/me/ownedDevices
+https://graph.microsoft.com/v1.0/me/?$select=skills
 
 https://graph.microsoft.com/beta/me
 
