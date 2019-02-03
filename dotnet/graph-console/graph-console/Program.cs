@@ -3,10 +3,17 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Collections.Generic;
+using System.Runtime.Serialization.Json;
 
 // See https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/console-webapiclient
 
 namespace graph_console {
+
+    public class Repo {
+
+        public string name;
+    }
 
     class Program {
 
@@ -42,10 +49,19 @@ namespace graph_console {
                 new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
             httpClient.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
 
+            // Initial impl without JSON deserialization
             var stringTask = httpClient.GetStringAsync("https://api.github.com/orgs/dotnet/repos");
-
             var msg = await stringTask;
             Console.Write(msg);
+
+            // 2nd impl
+            var serializer = new DataContractJsonSerializer(typeof(List<Repo>));
+            var streamTask = httpClient.GetStreamAsync("https://api.github.com/orgs/dotnet/repos");
+            var repositories = serializer.ReadObject(await streamTask) as List<Repo>;
+            foreach (var repo in repositories) {
+                Console.WriteLine(repo.name);
+            }
+
         }
 
         static void log(string msg) {
