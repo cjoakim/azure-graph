@@ -27,8 +27,8 @@ namespace graph_console {
             log("accessToken: " + accessToken);
 
             //getGithubDotnetRepositories().Wait();
-            //getGithubPersonalRepositories("public").Wait();
-            //getGithubPersonalRepositories("private").Wait();
+            getGithubPersonalRepositories("public").Wait();
+            getGithubPersonalRepositories("private").Wait();
 
             terminate();
         }
@@ -93,7 +93,7 @@ namespace graph_console {
             httpClient.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
 
             string token = readEnvVar("GITHUB_REST_API_TOKEN");
-            string url = "https://api.github.com/user/repos?access_token=" + token + "&type=" + type;
+            string url = "https://api.github.com/user/repos?access_token=" + token + "&type=" + type + "&per_page=100";
             log("url: " + url);
             var serializer = new DataContractJsonSerializer(typeof(List<Repository>));
             var streamTask = httpClient.GetStreamAsync(url);
