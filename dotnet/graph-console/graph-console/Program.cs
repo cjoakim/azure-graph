@@ -26,7 +26,8 @@ namespace graph_console {
             string accessToken = readAccessToken();
             log("accessToken: " + accessToken);
 
-            getGithubDotnetRepositories().Wait();
+            //getGithubDotnetRepositories().Wait();
+            getGithubPersonalRepositories().Wait();
 
             terminate();
         }
@@ -34,7 +35,7 @@ namespace graph_console {
         static string readAccessToken() {
 
             // [Environment]::SetEnvironmentVariable("GRAPH_CONSOLE_HOME", "C:\Users\chris\github\azure-graph\dotnet\graph-console\graph-console", "User")
-            string projectDir = Environment.GetEnvironmentVariable("GRAPH_CONSOLE_HOME");
+            string projectDir = readEnvVar("GRAPH_CONSOLE_HOME");
             string inputFile  = projectDir + "/tmp/access_token.txt";
             log("inputFile: " + inputFile);
 
@@ -80,9 +81,33 @@ namespace graph_console {
             }
         }
 
+
+        private static async Task getGithubPersonalRepositories() {
+
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+            httpClient.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
+
+            string token = readEnvVar("GITHUB_REST_API_TOKEN");
+            string url = "https://api.github.com/user/repos?access_token=" + token;
+            log("url: " + url);
+            var serializer = new DataContractJsonSerializer(typeof(List<Repository>));
+            var streamTask = httpClient.GetStreamAsync(url);
+            var repositories = serializer.ReadObject(await streamTask) as List<Repository>;
+            foreach (var repo in repositories) {
+                Console.WriteLine(repo);
+            }
+        }
+
         static void log(string msg) {
 
             Console.WriteLine(msg);
+        }
+
+        static string readEnvVar(string name) {
+
+            return Environment.GetEnvironmentVariable(name);
         }
 
         static void terminate() {
