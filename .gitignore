@@ -1,8 +1,14 @@
 
 # cj
+**/.vs/
+
 dotnet/bin/
 dotnet/obj/
 dotnet/tmp/
+
+dotnet/graph-console/graph-console/bin/
+dotnet/graph-console/graph-console/obj/
+dotnet/graph-console/graph-console/tmp/
 
 node/config/config.json
 node/tmp/
