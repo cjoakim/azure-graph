@@ -1,8 +1,11 @@
 
 # cj
+dotnet/obj/
+
 node/config/config.json
 node/tmp/
 node/tmp/access_token.txt
+
 private.txt
 
 # Logs
