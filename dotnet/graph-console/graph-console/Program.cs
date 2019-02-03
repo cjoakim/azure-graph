@@ -26,9 +26,9 @@ namespace graph_console {
             string accessToken = readAccessToken();
             log("accessToken: " + accessToken);
 
-            getGithubDotnetRepositories().Wait();
-            getGithubPersonalRepositories("public").Wait();
-            getGithubPersonalRepositories("private").Wait();
+            //getGithubDotnetRepositories().Wait();
+            //getGithubPersonalRepositories("public").Wait();
+            //getGithubPersonalRepositories("private").Wait();
 
             terminate();
         }
