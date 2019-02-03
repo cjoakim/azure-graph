@@ -1,6 +1,8 @@
 
 # cj
+dotnet/bin/
 dotnet/obj/
+dotnet/tmp/
 
 node/config/config.json
 node/tmp/
