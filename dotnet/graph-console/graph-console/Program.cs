@@ -26,8 +26,9 @@ namespace graph_console {
             string accessToken = readAccessToken();
             log("accessToken: " + accessToken);
 
-            //getGithubDotnetRepositories().Wait();
-            getGithubPersonalRepositories().Wait();
+            getGithubDotnetRepositories().Wait();
+            getGithubPersonalRepositories("public").Wait();
+            getGithubPersonalRepositories("private").Wait();
 
             terminate();
         }
@@ -46,6 +47,7 @@ namespace graph_console {
 
         private static async Task getGithubDotnetRepositories() {
 
+            log("getGithubDotnetRepositories");
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
@@ -75,14 +77,15 @@ namespace graph_console {
                 var serializer = new DataContractJsonSerializer(typeof(List<Repository>));
                 var streamTask = httpClient.GetStreamAsync("https://api.github.com/orgs/dotnet/repos");
                 var repositories = serializer.ReadObject(await streamTask) as List<Repository>;
+                Array.Sort(repositories.ToArray());
                 foreach (var repo in repositories) {
-                    Console.WriteLine(repo);
+                    log(repo.ToString());
                 }
             }
         }
 
 
-        private static async Task getGithubPersonalRepositories() {
+        private static async Task getGithubPersonalRepositories(string type) {
 
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(
@@ -90,14 +93,18 @@ namespace graph_console {
             httpClient.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
 
             string token = readEnvVar("GITHUB_REST_API_TOKEN");
-            string url = "https://api.github.com/user/repos?access_token=" + token;
+            string url = "https://api.github.com/user/repos?access_token=" + token + "&type=" + type;
             log("url: " + url);
             var serializer = new DataContractJsonSerializer(typeof(List<Repository>));
             var streamTask = httpClient.GetStreamAsync(url);
             var repositories = serializer.ReadObject(await streamTask) as List<Repository>;
+
+            Array.Sort(repositories.ToArray());
+
             foreach (var repo in repositories) {
-                Console.WriteLine(repo);
+                log(repo.ToString());
             }
+            log("" + type + " count: " + repositories.Count);
         }
 
         static void log(string msg) {

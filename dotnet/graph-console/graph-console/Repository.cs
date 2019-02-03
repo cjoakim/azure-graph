@@ -5,7 +5,7 @@ using System.Globalization;
 namespace graph_console {
 
     [DataContract(Name="repo")]
-    public class Repository {
+    public class Repository : IComparable {
 
         [DataMember(Name="name")]
         public string Name { get; set; }
@@ -37,9 +37,23 @@ namespace graph_console {
             }
         }
 
+        public string visibility() {
+
+            if (IsPrivate.ToLower() == "true") {
+                return "private";
+            }
+            return "public";
+        }
         public override String ToString() {
 
-            return Name + " -> " + IsPrivate + " -> " + GitHubHomeUrl + " -> " + Description;
+            return Name + " | " + visibility() + " | " + GitHubHomeUrl; // + " -> " + Description;
+        }
+
+        int IComparable.CompareTo(object obj) {
+
+            Repository another = (Repository)obj;
+            return String.Compare(this.Name, another.Name);
+
         }
     }
 }
