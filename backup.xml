@@ -2,14 +2,14 @@
     
     <description>
         Ant script to create a backup zip file of this project.
-        Chris Joakim, Microsoft, 2019/01/29
+        Chris Joakim, Microsoft, 2019/10/10
         $ ant -f backup.xml
     </description>
 
     <!-- These are the only properties you should have to change.  -->
     <property name="_projectRoot" value="/Users/${user.name}/github/" />
     <property name="_projectName" value="azure-graph" />
-    <property name="_backupRoot"  value="/Backups/projects" />
+    <property name="_backupRoot"  value="/Users/${user.name}/Backups/projects" />
 
     <!-- These properties are derived from the above. -->
     <property name="_projectDir"  value="${_projectRoot}${_projectName}" />
